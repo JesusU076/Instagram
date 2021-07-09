@@ -15,13 +15,8 @@ import com.parse.ParseFile;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 import java.text.SimpleDateFormat;
-
-
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
 
