@@ -67,6 +67,8 @@ public class ComposeFragment extends Fragment {
         ivPostImage = view.findViewById(R.id.ivPostImage);
         btnSubmit = view.findViewById(R.id.btnSubmit);
 
+        ivPostImage.setVisibility(View.GONE);
+
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,6 +124,7 @@ public class ComposeFragment extends Fragment {
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 // RESIZE BITMAP, see section below
                 // Load the taken image into a preview
+                ivPostImage.setVisibility(View.VISIBLE);
                 ivPostImage.setImageBitmap(takenImage);
             } else { // Result was a failure
                 Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
@@ -160,6 +163,7 @@ public class ComposeFragment extends Fragment {
                 Log.i(TAG, "Post save was succesful!!");
                 etDescription.setText("");
                 ivPostImage.setImageResource(0);
+                ivPostImage.setVisibility(View.GONE);
             }
         });
     }
