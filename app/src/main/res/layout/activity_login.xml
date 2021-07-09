@@ -29,6 +29,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="@string/login" />
+        android:backgroundTint="#62DEED"
+        android:text="@string/login"
+        android:textColor="@android:color/black" />
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="#5EDF63"
+        android:text="Sign Up"
+        android:textColor="@android:color/black" />
 
 </LinearLayout>
