@@ -9,9 +9,12 @@ public class ParseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        ParseObject.registerSubclass(Post.class);
+
         Parse.initialize(new Parse.Configuration.Builder(this)
-                .applicationId(String.valueOf(R.string.app_id))
-                .clientKey(String.valueOf(R.string.client_key))
+                .applicationId(BuildConfig.APP_ID)
+                .clientKey(BuildConfig.CLIENT)
                 .server("https://parseapi.back4app.com")
                 .build()
         );
