@@ -32,6 +32,7 @@ public class PostsFragment extends Fragment {
     public static final String TAG = "PostsFragment";
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView rvPosts;
+    private LinearLayoutManager mLayoutManager;
     private PostsAdapter adapter;
     private List<Post> allPosts;
 
@@ -39,8 +40,7 @@ public class PostsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_posts, container, false);
     }
 
@@ -52,7 +52,9 @@ public class PostsFragment extends Fragment {
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), allPosts);
         rvPosts.setAdapter(adapter);
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mLayoutManager.setReverseLayout(true);
+        rvPosts.setLayoutManager(mLayoutManager);
 
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContent);
 
