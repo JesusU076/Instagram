@@ -41,24 +41,21 @@ import java.util.List;
 
 public class ComposeFragment extends Fragment {
 
-    public static final String TAG = "MainActivity";
+    public static final String TAG = "ComposeFragment";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     private EditText etDescription;
     private Button btnCaptureImage;
     private ImageView ivPostImage;
     private Button btnSubmit;
-    private Button btnLogOut;
     private File photoFile;
     public String photoFileName = "photo.jpg";
 
     public ComposeFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_compose, container, false);
     }
 
@@ -69,7 +66,6 @@ public class ComposeFragment extends Fragment {
         btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
         ivPostImage = view.findViewById(R.id.ivPostImage);
         btnSubmit = view.findViewById(R.id.btnSubmit);
-        btnLogOut = view.findViewById(R.id.btnLogOut);
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +77,7 @@ public class ComposeFragment extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String description = etDescription.getText().toString();
+                final String description = etDescription.getText().toString();
                 if (description.isEmpty()){
                     Toast.makeText(getContext(), "Description cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
@@ -92,13 +88,6 @@ public class ComposeFragment extends Fragment {
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description, currentUser, photoFile);
-            }
-        });
-
-        btnLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logOutUser();
             }
         });
     }
@@ -173,28 +162,5 @@ public class ComposeFragment extends Fragment {
                 ivPostImage.setImageResource(0);
             }
         });
-    }
-
-    private void queryPosts() {
-        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        query.include(Post.KEY_USER);
-        query.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> posts, ParseException e) {
-                if (e != null){
-                    Log.e(TAG, "Issue with getting posts", e);
-                }
-                for (Post post : posts){
-                    Log.i(TAG, "Post" + post.getDescription() + ", username: " + post.getUser().getUsername());
-                }
-            }
-        });
-    }
-
-    private void logOutUser() {
-        ParseUser.logOut();
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        Intent i = new Intent(getContext(), LoginActivity.class);
-        startActivity(i);
     }
 }
